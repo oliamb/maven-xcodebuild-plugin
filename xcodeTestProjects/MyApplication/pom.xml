@@ -1,0 +1,23 @@
+<project>
+  
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ch.livingweb.xcodebuild.test</groupId>
+  <artifactId>simple-cocoa-application</artifactId>
+  <packaging>xcode</packaging>
+  <version>1.0</version>
+  <name>Simple xCode Application</name>
+  
+  <build>
+	  <plugins>
+		<plugin>
+			<groupId>ch.livingweb.mojo.xcodebuild</groupId>
+			<artifactId>maven-xcodebuild-plugin</artifactId>
+			<version>0.1-SNAPSHOT</version>
+			<extensions>true</extensions>
+			<configuration>
+				<xcodeProject>MyApplication</xcodeProject>
+			</configuration>
+		</plugin>
+	  </plugins>
+  </build>
+</project>
