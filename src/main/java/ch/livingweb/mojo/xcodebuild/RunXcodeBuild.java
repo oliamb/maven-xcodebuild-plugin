@@ -80,9 +80,12 @@ public class RunXcodeBuild extends AbstractMojo {
 		
 		try {
 			ProcessBuilder pb = new ProcessBuilder(xcodeCommandLine.getAbsolutePath());
+			// Include errors in output
+			pb.redirectErrorStream(true);
 			
 			if(xcodeProject != null){
-				pb.command().add("-project " + xcodeProject);
+				pb.command().add("-project");
+				pb.command().add(xcodeProject + ".xcodeproj");
 			}
 			if(xcodeTarget != null){
 				pb.command().add("-target " + xcodeTarget);
@@ -90,6 +93,15 @@ public class RunXcodeBuild extends AbstractMojo {
 			pb.command().add("install");
 			pb.directory(new File(basedir));
 			Process child = pb.start();
+			
+			// Consume subprocess output and write to stdout for debugging
+			InputStream is = new BufferedInputStream(child.getInputStream());
+			int singleByte = 0;
+            while ((singleByte = is.read()) != -1) {
+                //output.write(buffer, 0, bytesRead);
+                System.out.write(singleByte);
+            }
+			
 			child.waitFor();
 			getLog().info("Exit Value: " + child.exitValue());
 			/*
