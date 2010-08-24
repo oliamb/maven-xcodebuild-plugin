@@ -34,6 +34,20 @@ public class RunXcodeBuild extends AbstractMojo {
 	 */
 	private String xcodeTarget;
 	
+    /**
+     * config to be built
+     *
+     * @parameter
+     */
+    private String xcodeConfig;
+    
+    /**
+     * sdk to be built
+     *
+     * @parameter
+     */
+    private String xcodeSdk;
+
 	/**
 	 * The maven project.
 	 *
@@ -90,8 +104,15 @@ public class RunXcodeBuild extends AbstractMojo {
 			if(xcodeTarget != null){
 				pb.command().add("-target " + xcodeTarget);
 			}
+            if(xcodeConfig != null){
+                pb.command().add("-config " + xcodeConfig);
+            }
+            if(xcodeSdk != null){
+                pb.command().add("-sdk " + xcodeSdk);
+            }
 			pb.command().add("install");
 			pb.directory(new File(basedir));
+			getLog().info("Executing " + pb.command());
 			Process child = pb.start();
 			
 			// Consume subprocess output and write to stdout for debugging
