@@ -16,6 +16,7 @@
 			<extensions>true</extensions>
 			<configuration>
 				<xcodeProject>MyApplication</xcodeProject>
+                <xcodeSdks><xcodeSdk>foo</xcodeSdk></xcodeSdks>
 			</configuration>
 		</plugin>
 	  </plugins>
