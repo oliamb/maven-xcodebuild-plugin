@@ -27,6 +27,20 @@ public class RunXcodeBuildClean extends AbstractMojo {
 	 */
 	private String xcodeProject;
 	
+    /**
+     * config to be built
+     *
+     * @parameter
+     */
+    private String xcodeConfig;
+    
+    /**
+     * sdk to be built
+     *
+     * @parameter
+     */
+    private String xcodeSdk;
+	
 	/**
 	 * @parameter expression="${basedir}"
 	 */
@@ -42,10 +56,18 @@ public class RunXcodeBuildClean extends AbstractMojo {
 		try {
 			ProcessBuilder pb = new ProcessBuilder(xcodeCommandLine.getAbsolutePath());
 			if(xcodeProject != null){
-				pb.command().add("-project " + xcodeProject);
+			    pb.command().add("-project");
+			    pb.command().add(xcodeProject + ".xcodeproj");
 			}
+            if(xcodeConfig != null){
+                pb.command().add("-config " + xcodeConfig);
+            }
+            if(xcodeSdk != null){
+                pb.command().add("-sdk " + xcodeSdk);
+            }
 			pb.command().add("clean");
 			pb.directory(new File(basedir));
+			getLog().info("Executing " + pb.command());
 			Process child = pb.start();
 			child.waitFor();
 			getLog().info("Exit Value: " + child.exitValue());
