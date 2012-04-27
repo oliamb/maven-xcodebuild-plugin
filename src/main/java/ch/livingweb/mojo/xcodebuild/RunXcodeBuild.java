@@ -92,9 +92,11 @@ public class RunXcodeBuild extends AbstractMojo {
             try {
                 ProcessBuilder pb = createDefaultProcessBuilder();
                 if (xcodeConfig != null) {
-                    pb.command().add("-config " + xcodeConfig);
+                    pb.command().add("-config");
+                    pb.command().add(xcodeConfig);
                 }
-                pb.command().add("-sdk " + xcodeSdk);
+                pb.command().add("-sdk");
+                pb.command().add(xcodeSdk);
                 pb.command().add("install");
                 pb.directory(new File(basedir));
                 // Include errors in output
@@ -139,7 +141,8 @@ public class RunXcodeBuild extends AbstractMojo {
             pb.command().add(xcodeProject + ".xcodeproj");
         }
         if (xcodeTarget != null) {
-            pb.command().add("-target " + xcodeTarget);
+            pb.command().add("-target" + xcodeTarget);
+            pb.command().add(xcodeTarget);
         }
         return pb;
     }
